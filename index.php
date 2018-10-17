@@ -55,27 +55,15 @@
     //return $response->withStatus(404)->write('Error 404 pe');
     return $this->renderer->render($response, '/public/error404.html');
   });
-  $app->get('/hello/{name}', function ($request, $response, $args) {
-    return $response->write('Hello ' . $args['name']);
-  });
-  $app->get('/departamento/listar', function ($request, $response, $args) {
-    $rpta = '';
-    $status = 200;
-    try {
-      $db = call_user_func($this->get('settings')['db']);
-      $stmt = $db->prepare('SELECT * FROM departamentos');
-    	$stmt->execute();
-    	$rpta = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-    }catch (Exception $e) {
-      $status = 500;
-      $rpta = array(
-        'tipo_mensaje' => 'error',
-        'mensaje' => array('Se ha producido un error en listar los departamentos',
-          $e->getMessage()
-        )
-      );
+  $app->get('/key', function($request, $response, $args){
+    $length = 13;
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
-    return $response->withStatus($status)->write($rpta);
+    return $response->withStatus(200)->write($randomString);
   });
   // Run app
   $app->run();

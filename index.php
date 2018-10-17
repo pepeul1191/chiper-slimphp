@@ -27,7 +27,11 @@
     $settings = $this->get('settings');
     $continuar = true;
     if($settings['constants']['ambiente_csrf'] == 'activo'){
-      if($request->getHeader($settings['constants']['csrf']['key'])[0] != $settings['constants']['csrf']['secret']){
+      if(count($request->getHeader($settings['constants']['csrf']['key'])) != 0){
+        if($request->getHeader($settings['constants']['csrf']['key'])[0] != $settings['constants']['csrf']['secret']){
+          $continuar = false;
+        }
+      }else{
         $continuar = false;
       }
     }

@@ -6,14 +6,9 @@
     'settings' => [
       'displayErrorDetails' => true,
       'addContentLengthHeader' => false,
-      'db' =>  function(){
-        $db = new PDO('sqlite:db/ubicaciones.db');
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $db;
-      },
       'constants' => [
-        'base_url' => 'http://localhost:8080/',
-        'static_url' => 'http://localhost:8080/public/',]
+        'base_url' => 'http://localhost:4200/',
+        'static_url' => 'http://localhost:4200/public/',]
       ,
       'renderer' => [
         'template_path' => __DIR__,

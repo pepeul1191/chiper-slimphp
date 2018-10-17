@@ -1,0 +1,106 @@
+{
+	"id": "4ed009b7-5c65-3081-d108-eb5c80ae511b",
+	"name": "PHPSlim Cipher",
+	"description": "",
+	"order": [
+		"957618c2-9ebf-55f3-4b85-49a56349ed8b",
+		"b0bc1372-ebbe-f252-ad9d-cdcae49e6556"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1539745027373,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "957618c2-9ebf-55f3-4b85-49a56349ed8b",
+			"headers": "csrf_val: PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L\n",
+			"headerData": [
+				{
+					"key": "csrf_val",
+					"value": "PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:4200/decrypt",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "4ed009b7-5c65-3081-d108-eb5c80ae511b",
+			"data": [
+				{
+					"key": "key",
+					"value": "lQCue5r2U5YrR",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "data",
+					"value": "vPWKzwMiwQniX0HmpIrBW416CZzRDYksG991XW+a9iU=",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "decrypt",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1539745028981,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "b0bc1372-ebbe-f252-ad9d-cdcae49e6556",
+			"headers": "csrf_vals: PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L\n",
+			"headerData": [
+				{
+					"key": "csrf_vals",
+					"value": "PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:4200/encrypt",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "4ed009b7-5c65-3081-d108-eb5c80ae511b",
+			"data": [
+				{
+					"key": "key",
+					"value": "lQCue5r2U5YrR",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "data",
+					"value": "koki123",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "encrypt",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1539745039806,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

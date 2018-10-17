@@ -8,8 +8,13 @@
       'addContentLengthHeader' => false,
       'constants' => [
         'base_url' => 'http://localhost:4200/',
-        'static_url' => 'http://localhost:4200/public/',]
-      ,
+        'static_url' => 'http://localhost:4200/public/',
+        'ambiente_csrf' => 'activo',
+        'csrf' => [
+          'secret' => 'PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L',
+          'key' => 'csrf_val'
+        ],
+      ],
       'renderer' => [
         'template_path' => __DIR__,
       ],
@@ -17,6 +22,32 @@
   ];
   // Iniciar la instancia de la aplicación Slim
   $app = new \Slim\App($config);
+  // middleware
+  $mw_csrf = function ($request, $response, $next) {
+    $settings = $this->get('settings');
+    $continuar = true;
+    if($settings['constants']['ambiente_csrf'] == 'activo'){
+      if($request->getHeader($settings['constants']['csrf']['key'])[0] != $settings['constants']['csrf']['secret']){
+        $continuar = false;
+      }
+    }
+    if($continuar == true){
+      $response = $next($request, $response);
+      return $response;
+    }else{
+      $status = 500;
+      $rpta = json_encode(
+        [
+          'tipo_mensaje' => 'error',
+          'mensaje' => [
+            'No se puede acceder al recurso',
+            'CSRF Token key error'
+          ]
+        ]
+      );
+      return $response->withStatus($status)->write($rpta);
+    }
+  };
   // Container para el error 404
   $container = $app->getContainer();
   $container['notFoundHandler'] = function ($c) {
@@ -70,12 +101,12 @@
     $data = $request->getParam('data');
     $rpta = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $data, MCRYPT_MODE_CBC, md5(md5($key))));
     return $response->withStatus(200)->write($rpta);
-  });
+  })->add($mw_csrf);
   $app->post('/decrypt', function($request, $response, $args){
     $key = $request->getParam('key');
     $data = $request->getParam('data');
     $rpta = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($data), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
     return $response->withStatus(200)->write($rpta);
-  });
+  })->add($mw_csrf);
   // Run app
   $app->run();

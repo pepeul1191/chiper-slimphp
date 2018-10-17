@@ -65,5 +65,17 @@
     }
     return $response->withStatus(200)->write($randomString);
   });
+  $app->post('/encrypt', function($request, $response, $args){
+    $key = $request->getParam('key');
+    $data = $request->getParam('data');
+    $rpta = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $data, MCRYPT_MODE_CBC, md5(md5($key))));
+    return $response->withStatus(200)->write($rpta);
+  });
+  $app->post('/decrypt', function($request, $response, $args){
+    $key = $request->getParam('key');
+    $data = $request->getParam('data');
+    $rpta = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($data), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
+    return $response->withStatus(200)->write($rpta);
+  });
   // Run app
   $app->run();
